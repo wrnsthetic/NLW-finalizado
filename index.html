@@ -5,7 +5,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        *,
+        :root {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'inter', sans-serif;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+        }
+
+
+        body {
+            background-color: #0F172A;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 640px;
+            margin: 0 auto 64px;
+        }
+
+        header {
+            margin-top: 64px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #334155;
+        }
+
+        header h1 {
+            margin-top: 24px;
+            font-size: 30px;
+            color: #F1F5F9
+        }
+
+
+        #quiz {
+            counter-reset: quiz-item;
+        }
+
+        .quiz-item {
+            margin-top: 24px;
+            border: 1px solid #475569;
+            border-radius: 6px;
+
+            overflow: hidden;
+
+        }
+
+        .quiz-item h3 {
+            padding: 16px 20px;
+            color: #E2E8F0;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            background-color: #1E293B;
+        }
+
+        .quiz-item h3:before {
+            counter-increment: quiz-item;
+            content: counter(quiz-item);
+
+            background-color: #475569;
+            width: 28px;
+            height: 28px;
+            font-size: 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+
+
+        .quiz-item dl {
+            padding: 20px 24px;
+            display: grid;
+            gap: 8px;
+            color: #F1F5F9
+        }
+
+        .quiz-item dl dt {
+            font-size: 14px;
+            line-height: 24px;
+            letter-spacing: 0;
+
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+        }
+
+
+        input {
+            all: unset;
+            border: 1px solid #94A3B8;
+            width: 16px;
+            height: 16px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        input:checked {
+            border: 1pix solid #A3E635;
+        }
+
+        input:checked:before {
+            content: "";
+            width: 10px;
+            height: 10px;
+
+            background-color: #A3E635;
+            border-radius: 50%;
+
+        }
+
+        #acertos {
+            text-align: center;
+            background-color: #A3E635;
+
+            position: fixed;
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+            padding: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -40,130 +179,130 @@
     <script>
 
 
-            const perguntas = [
+        const perguntas = [
             {
                 pergunta: "Qual é a forma correta de declarar uma variável em JavaScript?",
-            respostas: [
-            "vari myVar = 10;",
-            "let myVar = 10;",
-            "const myVar = 10;"
-            ],
-            correta: 1 // A resposta correta é a opção 2, 'let myVar = 10;'
-    },
+                respostas: [
+                    "vari myVar = 10;",
+                    "let myVar = 10;",
+                    "const myVar = 10;"
+                ],
+                correta: 1 // A resposta correta é a opção 2, 'let myVar = 10;'
+            },
             {
                 pergunta: "Qual dos seguintes é um tipo de dado primitivo em JavaScript?",
-            respostas: [
-            "Array",
-            "Object",
-            "String"
-            ],
-            correta: 2 // A resposta correta é a opção 3, 'String'
-    },
+                respostas: [
+                    "Array",
+                    "Object",
+                    "String"
+                ],
+                correta: 2 // A resposta correta é a opção 3, 'String'
+            },
             {
                 pergunta: "O que o método 'console.log()' faz em JavaScript?",
-            respostas: [
-            "Imprime algo no console do navegador",
-            "Cria um alerta na página",
-            "Adiciona um elemento ao HTML"
-            ],
-            correta: 0 // A resposta correta é a opção 1, 'Imprime algo no console do navegador'
-    },
+                respostas: [
+                    "Imprime algo no console do navegador",
+                    "Cria um alerta na página",
+                    "Adiciona um elemento ao HTML"
+                ],
+                correta: 0 // A resposta correta é a opção 1, 'Imprime algo no console do navegador'
+            },
             {
                 pergunta: "Qual é a função do operador '===' em JavaScript?",
-            respostas: [
-            "Comparação estrita (igualdade de valor e tipo)",
-            "Comparação solta (igualdade de valor)",
-            "Atribuição de valor"
-            ],
-            correta: 0 // A resposta correta é a opção 1, 'Comparação estrita (igualdade de valor e tipo)'
-    },
+                respostas: [
+                    "Comparação estrita (igualdade de valor e tipo)",
+                    "Comparação solta (igualdade de valor)",
+                    "Atribuição de valor"
+                ],
+                correta: 0 // A resposta correta é a opção 1, 'Comparação estrita (igualdade de valor e tipo)'
+            },
             {
                 pergunta: "Como você declara uma função em JavaScript?",
-            respostas: [
-            "function myFunction() { }",
-        "const myFunction = () => { }",
-            "myFunction = function() { }"
-            ],
-            correta: 0 // A resposta correta é a opção 1, 'function myFunction() { }'
-    },
+                respostas: [
+                    "function myFunction() { }",
+                    "const myFunction = () => { }",
+                    "myFunction = function() { }"
+                ],
+                correta: 0 // A resposta correta é a opção 1, 'function myFunction() { }'
+            },
             {
                 pergunta: "Qual é o símbolo para comentários de linha em JavaScript?",
-            respostas: [
-            "//",
-            "/* */",
-            "#"
-            ],
-            correta: 0 // A resposta correta é a opção 1, '//'
-    },
+                respostas: [
+                    "//",
+                    "/* */",
+                    "#"
+                ],
+                correta: 0 // A resposta correta é a opção 1, '//'
+            },
             {
                 pergunta: "O que é um operador ternário em JavaScript?",
-            respostas: [
-            "Um operador que trabalha com três operandos",
-            "Um operador que trabalha com dois operandos",
-            "Um operador que trabalha com um operando"
-            ],
-            correta: 0 // A resposta correta é a opção 1, 'Um operador que trabalha com três operandos'
-    },
+                respostas: [
+                    "Um operador que trabalha com três operandos",
+                    "Um operador que trabalha com dois operandos",
+                    "Um operador que trabalha com um operando"
+                ],
+                correta: 0 // A resposta correta é a opção 1, 'Um operador que trabalha com três operandos'
+            },
             {
                 pergunta: "Qual é o método usado para remover o último elemento de um array em JavaScript?",
-            respostas: [
-            "pop()",
-            "shift()",
-            "splice()"
-            ],
-            correta: 0 // A resposta correta é a opção 1, 'pop()'
-    },
+                respostas: [
+                    "pop()",
+                    "shift()",
+                    "splice()"
+                ],
+                correta: 0 // A resposta correta é a opção 1, 'pop()'
+            },
             {
                 pergunta: "O que o método 'forEach()' faz em um array em JavaScript?",
-            respostas: [
-            "Itera sobre cada elemento do array",
-            "Remove todos os elementos do array",
-            "Adiciona um elemento ao array"
-            ],
-            correta: 0 // A resposta correta é a opção 1, 'Itera sobre cada elemento do array'
-    },
+                respostas: [
+                    "Itera sobre cada elemento do array",
+                    "Remove todos os elementos do array",
+                    "Adiciona um elemento ao array"
+                ],
+                correta: 0 // A resposta correta é a opção 1, 'Itera sobre cada elemento do array'
+            },
             {
                 pergunta: "Qual é o resultado da expressão '5 + '5' em JavaScript?",
-            respostas: [
-            "'55'",
-            "10",
-            "Erro"
-            ],
-            correta: 0 // A resposta correta é a opção 1, "'55'"
-    }
-            ];
+                respostas: [
+                    "'55'",
+                    "10",
+                    "Erro"
+                ],
+                correta: 0 // A resposta correta é a opção 1, "'55'"
+            }
+        ];
 
-            const quiz = document.querySelector('#quiz')
-            const template = document.querySelector('template')
+        const quiz = document.querySelector('#quiz')
+        const template = document.querySelector('template')
 
-            const corretas = new Set()
-            const totalDePerguntas = perguntas.length
-            const mostrarTotal = document.querySelector('#acertos span');
-            mostrarTotal.textContent = corretas.size + ' de ' + totalDePerguntas
+        const corretas = new Set()
+        const totalDePerguntas = perguntas.length
+        const mostrarTotal = document.querySelector('#acertos span');
+        mostrarTotal.textContent = corretas.size + ' de ' + totalDePerguntas
 
-            // laço de repetição; loop;
-            for (const item of perguntas) {
-    const quizItem = template.content.cloneNode(true)
+        // laço de repetição; loop;
+        for (const item of perguntas) {
+            const quizItem = template.content.cloneNode(true)
             quizItem.querySelector('h3').textContent = item.pergunta
 
             for (let resposta of item.respostas) {
-      const dt = quizItem.querySelector('dl dt').cloneNode(true)
-            dt.querySelector('span').textContent = resposta
-            dt.querySelector('input').setAttribute('name', pergunta-${perguntas.indexOf(item)});
-            dt.querySelector('input').value = item.respostas.indexOf(resposta)
-      dt.querySelector('input').onchange = (event) => {
-        const estaCorreta = event.target.value == item.correta // true or false
+                const dt = quizItem.querySelector('dl dt').cloneNode(true)
+                dt.querySelector('span').textContent = resposta
+                dt.querySelector('input').setAttribute('name', pergunta-${perguntas.indexOf(item)});
+                dt.querySelector('input').value = item.respostas.indexOf(resposta)
+                dt.querySelector('input').onchange = (event) => {
+                    const estaCorreta = event.target.value == item.correta // true or false
 
-            corretas.delete(item)
-            if (estaCorreta) {
-                corretas.add(item)
+                    corretas.delete(item)
+                    if (estaCorreta) {
+                        corretas.add(item)
+                    }
+
+                    mostrarTotal.textContent = corretas.size + ' de ' + totalDePerguntas
+
+                }
+                quizItem.querySelector('dl').appendChild(dt)
             }
-
-            mostrarTotal.textContent = corretas.size + ' de ' + totalDePerguntas
-  
-      }
-            quizItem.querySelector('dl').appendChild(dt)
-    }
 
 
 
@@ -175,7 +314,7 @@
 
             // coloca a pergunta na tela
             quiz.appendChild(quizItem)
-  }
+        }
     </script>
 
 </body>
